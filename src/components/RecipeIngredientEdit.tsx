@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import { IIngredient } from '../types';
+import { RecipeContext } from '../App';
 
 interface IRecipeIngredientEdit {
   ingredient: IIngredient;
@@ -12,6 +14,8 @@ const RecipeIngredientEdit = ({
   handleIngredientDelete,
 }: IRecipeIngredientEdit) => {
   const { id, name, amount } = ingredient;
+  const { labels } = useContext(RecipeContext);
+  const { amount: amountLabel, name: nameLabel } = labels;
 
   function handleChange(changes: {}) {
     handleIngredientChange(id, { ...ingredient, ...changes });
@@ -24,7 +28,7 @@ const RecipeIngredientEdit = ({
           className="block mb-2 text-sm font-bold text-gray-700"
           htmlFor="amount"
         >
-          Amount
+          {amountLabel}
         </label>
         <input
           className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
@@ -40,7 +44,7 @@ const RecipeIngredientEdit = ({
           className="block mb-2 text-sm font-bold text-gray-700"
           htmlFor="instructions"
         >
-          Name
+          {nameLabel}
         </label>
         <input
           className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"

@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import RecipeList from './components/RecipeList';
 import RecipeEdit from './components/RecipeEdit';
 import { sampleRecipes } from './data/sample-recipes';
+import { labels } from './data/labels';
 import { IRecipe, IRecipeContext } from './types';
 
 export const RecipeContext = React.createContext<Partial<IRecipeContext>>({});
@@ -12,6 +13,14 @@ const LOCAL_STORAGE_KEY = 'reactApp.happyRecipes';
 function App() {
   const [recipes, setRecipes] = useState(sampleRecipes);
   const [selectedRecipeID, setSelectedRecipeID] = useState('');
+  const recipeContextValue = {
+    handleRecipeAdd,
+    handleRecipeDelete,
+    handleRecipeSelect,
+    handleRecipeChange,
+    labels,
+  };
+
   const selectedRecipe = recipes.find(
     (recipe) => recipe.id === selectedRecipeID
   );
@@ -26,16 +35,6 @@ function App() {
   useLayoutEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(recipes));
   }, [recipes]);
-
-  const recipeContextValue = {
-    handleRecipeAdd,
-    handleRecipeDelete,
-    handleRecipeSelect,
-    handleRecipeChange,
-    labels: {
-      addRecipe: 'Add recipe',
-    },
-  };
 
   function handleRecipeAdd() {
     const newRecipe = {

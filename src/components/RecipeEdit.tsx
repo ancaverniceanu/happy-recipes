@@ -10,7 +10,17 @@ interface RecipeEditProps {
 
 const RecipeEdit = ({ recipe }: RecipeEditProps) => {
   const { id, name, cookTime, servings, instructions, ingredients } = recipe;
-  const { handleRecipeChange, handleRecipeSelect } = useContext(RecipeContext);
+  const { handleRecipeChange, handleRecipeSelect, labels } = useContext(
+    RecipeContext
+  );
+  const {
+    name: nameLabel,
+    cookTime: cookTimeLabel,
+    servings: servingsLabel,
+    instructions: instructionsLabel,
+    ingredients: ingredientsLabel,
+    addIngredient,
+  } = labels;
 
   function handleChange(changes: {}) {
     handleRecipeChange(id, { ...recipe, ...changes });
@@ -67,7 +77,7 @@ const RecipeEdit = ({ recipe }: RecipeEditProps) => {
             className="block mb-2 text-sm font-bold text-gray-700"
             htmlFor="label"
           >
-            Name
+            {nameLabel}
           </label>
           <input
             className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
@@ -85,7 +95,7 @@ const RecipeEdit = ({ recipe }: RecipeEditProps) => {
             className="block mb-2 text-sm font-bold text-gray-700"
             htmlFor="cookTime"
           >
-            Cook time
+            {cookTimeLabel}
           </label>
           <input
             className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
@@ -103,7 +113,7 @@ const RecipeEdit = ({ recipe }: RecipeEditProps) => {
             className="block mb-2 text-sm font-bold text-gray-700"
             htmlFor="servings"
           >
-            Servings
+            {servingsLabel}
           </label>
           <input
             className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
@@ -122,7 +132,7 @@ const RecipeEdit = ({ recipe }: RecipeEditProps) => {
             className="block mb-2 text-sm font-bold text-gray-700"
             htmlFor="instructions"
           >
-            Instructions
+            {instructionsLabel}
           </label>
           <textarea
             className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
@@ -138,7 +148,7 @@ const RecipeEdit = ({ recipe }: RecipeEditProps) => {
       </div>
 
       <label className="block mb-2 text-sm font-bold text-gray-700">
-        Ingredients
+        {ingredientsLabel}
       </label>
       {ingredients.map((ingredient: IIngredient) => (
         <RecipeIngredientEdit
@@ -152,7 +162,7 @@ const RecipeEdit = ({ recipe }: RecipeEditProps) => {
         className="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded"
         onClick={() => handleIngredientsAdd()}
       >
-        Add ingredient
+        {addIngredient}
       </button>
     </div>
   );
